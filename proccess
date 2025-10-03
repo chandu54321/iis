@@ -1,0 +1,41 @@
+The following is a step-by-step process outlining the deployment of a Python Flask application onto IIS (Internet Information Services), based on the steps described in the sources.
+Step-by-Step Process: Deploying Python Flask on IIS
+1. Initial Setup and Prerequisites
+1. Prepare the Environment: Ensure you have a simple Python Flask application ready.
+2. Create a Virtual Environment: Run the command to create a virtual environment (e.g., python -m venv venv).
+3. Activate the Environment: Activate the newly created virtual environment (e.g., using venv\Scripts\activate).
+4. Install Required Modules: Install the necessary Python packages using pip, specifically wfastcgi and flask (e.g., pip install wfastcgi flask).
+5. Identify wfastcgi.py: Locate the path to the wfastcgi.py file, which is typically found inside the virtual environment directory (e.g., venv\Lib\site-packages\wfastcgi.py).
+6. Create the Application File: Create a simple Python Flask script (e.g., app.py).
+2. Enable IIS Features
+1. Access Windows Features: Go to your Windows settings and access the "Windows Feature" options.
+2. Enable IIS: Ensure "Internet Information Services" (IIS) is checked.
+3. Enable CGI: Under "World Wide Web Services" features, ensure "CGI" is checked. Click "OK" to apply changes.
+3. Configure FastCGI Settings in IIS Manager (Global Setup)
+1. Open IIS Manager: Launch the IIS Manager application.
+2. Access FastCGI Settings: Go to "FastCGI Settings".
+3. Add Application: Click to add a new FastCGI application.
+4. Set Full Path: Specify the Full Path to your Python executable located within your virtual environment (e.g., C:\path\to\venv\Scripts\python.exe).
+5. Set Arguments: Set the Arguments value to the path of your wfastcgi.py file. This associates the Python interpreter with the FastCGI handler.
+4. Create and Configure the Website
+1. Add Website: In IIS Manager, right-click and select "Add Website".
+2. Define Site Details:
+    ◦ Set a Site Name (e.g., flask-demo).
+    ◦ Set the Physical Path to the location of your Flask application files (e.g., C:\path\to\flask-application\).
+    ◦ Set the desired Port Name (e.g., 8080).
+3. Complete Creation: Click "OK" to create the website.
+5. Verify Handler Mappings and Set Security Authentication
+1. Check Handler Mappings: You should be able to find the Python FastCGI listed in the Handler Mappings for your website.
+2. Configure Authentication: Go to your newly created application (e.g., flask-demo).
+3. Select Authentication: Click on the "Authentication" feature.
+4. Set Application Name: Confirm or specify the application name (e.g., flask-web). Click "OK".
+6. Set File System Permissions
+1. Access Application Folder: Navigate to the physical path of your application folder.
+2. Open Security Properties: Right-click the folder, go to Properties, and select the Security tab.
+3. Edit Permissions: Click "Edit".
+4. Add IIS User: Add the specific IIS user: "IIS AppPool\DefaultAppPool".
+5. Grant Modify Access: Ensure the "Modify" permission is checked for this user.
+6. Apply Changes: Click "Apply" and "OK".
+7. Verification
+1. Browse Application: Access your application URL through a web browser.
+2. Confirm Output: Check the output to ensure you are receiving the expected response from your Flask application (e.g., "Hello IIS From Flask" or "Hello World"). If the output is visible, the deployment is successful.
